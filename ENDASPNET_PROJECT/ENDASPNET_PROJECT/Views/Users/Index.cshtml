@@ -1,0 +1,33 @@
+﻿@model ENDASPNET_PROJECT.Models.Users.User
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+using Fiver.Mvc.ModelValidation.Remote.Models.Users.User
+
+<strong>ASP.NET Core MVC Client Validation</strong>
+
+<form asp-controller="Users" asp-action="Index" method="post">
+    <div asp-validation-summary="All"></div>
+
+    <label asp-for="Id"></label>
+    <input asp-for="Id" />
+    <span asp-validation-for="Id"></span>
+    <label asp-for="Name"></label>
+    <input asp-for="Name" />
+    <span asp-validation-for="Name"></span>
+    <label asp-for="Role"></label>
+    <input asp-for="Role" />
+    <span asp-validation-for="Role"></span>
+
+    <button type="submit">Check</button>
+</form>
+
+<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.11.3.min.js"></script>
+<script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.14.0/jquery.validate.min.js"></script>
+<script src="https://ajax.aspnetcdn.com/ajax/jquery.validation.unobtrusive/3.2.6/jquery.validate.unobtrusive.min.js"></script>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

@@ -15,6 +15,8 @@ namespace ENDASPNET_PROJECT.Controllers
     {
         private readonly UsersContext _context;
 
+        public UsersContext Context => _context;
+
         public IActionResult Index()
         {
             return View();
@@ -53,8 +55,8 @@ namespace ENDASPNET_PROJECT.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    _context.Add(user);
-                    await _context.SaveChangesAsync();
+                    Context.Add(user);
+                    await Context.SaveChangesAsync();
                     return RedirectToAction(nameof(Index));
                 }
             }
@@ -70,7 +72,7 @@ namespace ENDASPNET_PROJECT.Controllers
         public async Task<IActionResult> Search(string text)
         {
             text = text.ToLower();
-            var searchedUsers = await _context.Users.Where(users => users.Name.ToLower().Contains(text))
+            var searchedUsers = await Context.Users.Where(users => users.Name.ToLower().Contains(text))
                                         .ToListAsync();
             return View("Index", searchedUsers);
         }
@@ -87,7 +89,7 @@ namespace ENDASPNET_PROJECT.Controllers
             {
                 return NotFound();
             }
-            var userToUpdate = await _context.Users.FirstOrDefaultAsync(s => s.Id == id);
+            var userToUpdate = await Context.Users.FirstOrDefaultAsync(s => s.Id == id);
             if (await TryUpdateModelAsync<User>(
                 userToUpdate,
                 "",
@@ -95,7 +97,7 @@ namespace ENDASPNET_PROJECT.Controllers
             {
                 try
                 {
-                    await _context.SaveChangesAsync();
+                    await Context.SaveChangesAsync();
                     return RedirectToAction(nameof(Index));
                 }
                 catch (DbUpdateException /* ex */)
@@ -122,7 +124,7 @@ namespace ENDASPNET_PROJECT.Controllers
                 return NotFound();
             }
 
-            var user = await _context.Users.AsNoTracking().FirstOrDefaultAsync(m => m.Id == id);
+            var user = await Context.Users.AsNoTracking().FirstOrDefaultAsync(m => m.Id == id);
             if (user == null)
             {
                 return NotFound();

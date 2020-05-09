@@ -21,7 +21,13 @@ namespace ENDASPNET_PROJECT.Models.Users
         [Display(Name = "User name")]
         public string Name { get; set; }
 
+        public string Password { get; set; }
+
         [Display(Name = "User role")]
         public string Role { get; set; }
+
+        public int? RoleId { get; set; }
+        public string Email { get; internal set; }
+        /*public Role Role { get; set; }*/
     }
 }

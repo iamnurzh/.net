@@ -12,6 +12,9 @@ namespace ENDASPNET_PROJECT.Controllers
     public class CommentsController : Controller
     {
         private readonly NewsContext _context;
+
+        public NewsContext Context => _context;
+
         public IActionResult Index()
         {
             return View();
@@ -30,8 +33,8 @@ namespace ENDASPNET_PROJECT.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    _context.Add(comment);
-                    await _context.SaveChangesAsync();
+                    Context.Add(comment);
+                    await Context.SaveChangesAsync();
                     return RedirectToAction(nameof(Index));
                 }
             }
@@ -47,7 +50,7 @@ namespace ENDASPNET_PROJECT.Controllers
         public async Task<IActionResult> Search(string text)
         {
             text = text.ToLower();
-            var searchedComments = await _context.Comments.Where(comments => comments.commentContent.ToLower().Contains(text))
+            var searchedComments = await Context.Comments.Where(comments => comments.commentContent.ToLower().Contains(text))
                                         .ToListAsync();
             return View("Index", searchedComments);
         }
@@ -64,7 +67,7 @@ namespace ENDASPNET_PROJECT.Controllers
             {
                 return NotFound();
             }
-            var commentToUpdate = await _context.Comments.FirstOrDefaultAsync(s => s.commentId == id);
+            var commentToUpdate = await Context.Comments.FirstOrDefaultAsync(s => s.commentId == id);
             if (await TryUpdateModelAsync<Comment>(
                 commentToUpdate,
                 "",
@@ -72,7 +75,7 @@ namespace ENDASPNET_PROJECT.Controllers
             {
                 try
                 {
-                    await _context.SaveChangesAsync();
+                    await Context.SaveChangesAsync();
                     return RedirectToAction(nameof(Index));
                 }
                 catch (DbUpdateException /* ex */)
@@ -99,7 +102,7 @@ namespace ENDASPNET_PROJECT.Controllers
                 return NotFound();
             }
 
-            var comment = await _context.Comments.AsNoTracking().FirstOrDefaultAsync(m => m.commentId == id);
+            var comment = await Context.Comments.AsNoTracking().FirstOrDefaultAsync(m => m.commentId == id);
             if (comment == null)
             {
                 return NotFound();

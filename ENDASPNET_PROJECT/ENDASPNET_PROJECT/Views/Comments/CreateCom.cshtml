@@ -1,0 +1,50 @@
+﻿@model ENDASPNET_PROJECT.Models.Comments.Comment
+
+@{
+    ViewBag.Title = "CreateCom";
+}
+
+<h2>CreateCom</h2>
+
+<h4>Comment</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="CreateCom">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="commentId" class="control-label"></label>
+                <input asp-for="commentId" class="form-control" />
+                <span asp-validation-for="commentId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="commentContent" class="control-label"></label>
+                <input asp-for="commentContent" class="form-control" />
+                <span asp-validation-for="commentContent" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="commentAuthor" class="control-label"></label>
+                <input asp-for="commentAuthor" class="form-control" />
+                <span asp-validation-for="commentAuthor" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="commentTime" class="control-label"></label>
+                <input asp-for="commentTime" class="form-control" />
+                <span asp-validation-for="commentTime" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="compostID" class="control-label"></label>
+                <input asp-for="compostID" class="form-control" />
+                <span asp-validation-for="compostID" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
